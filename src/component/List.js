@@ -1,5 +1,7 @@
 import React from 'react';
-
+import moment from 'moment'
+//moment(post.date).format()
+//<Moment format="YYYY/MM/DD">{this.props.dateToFormat}</Moment>
 function List ({form, setForm}) {
 
         const deleteItem = event => {
