@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {useEffect}  from 'react';
 import moment from 'moment-timezone';
-//moment(post.date).format()
-//<Moment format="YYYY/MM/DD">{this.props.dateToFormat}</Moment>
-function List ({form, setForm}) {
 
-        const deleteItem = event => {
-                event.preventDefault();
-                const result = form.object.filter(word => event.target.parentElement.children[0].textContent !== word.date);
-                setForm({object: result});
+function List ({time, form, setTime, newTime}) {
+
+        useEffect(componentDidUpdate, [newTime]);
+
+        function funcTime() {
+                setInterval(function () {
+                        time.object.map((item, i) => newTime.push(moment(new Date()).tz(form.object[i][1]).format('LTS')))
+                        setTime({object: newTime});
+                },1000);
         }
-        const now = moment(new Date()).tz("London").format('LTS');
-        return (
-        <div style={{float: "left", margin: "20px", border: "solid black 2px", borderRadius: "10px", width: "500px", display: "box"}}>
-        <ul><div>{now}</div></ul>
-        </div>
+
+        function componentDidUpdate() {
+                funcTime();
+        }
+        
+        return ( 
+                <div>{time.object.length !== 0 ? time.object.map((items, i) => <p key={i}>{items}</p>) : ""}</div>
         )
 }
 
