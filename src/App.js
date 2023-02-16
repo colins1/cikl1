@@ -5,14 +5,15 @@ import './App.css';
 import './main.css';
 
 function App() {
+
   const [form, setForm] = useState({
     object: [],
   })
 
   const [time, setTime] = useState({
+    answer: true,
     object: [],
   })
-
 
   return (
     <div className="App">
