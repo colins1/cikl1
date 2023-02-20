@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from './component/Form';
 import './App.css';
 import './main.css';
@@ -10,14 +10,18 @@ function App() {
     object: [],
   })
 
-  const [time, setTime] = useState({
-    answer: true,
+  const [objtime, setobjtime] = useState({
+    object: [],
+  })
+
+  
+  const [onTimeout, setonTimeout] = useState({
     object: [],
   })
 
   return (
     <div className="App">
-      <Form form={form} setForm={setForm} time={time} setTime={setTime}/>
+      <Form form={form} setForm={setForm} onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime}/>
     </div>
   );
 }
