@@ -6,7 +6,7 @@ import './main.css';
 
 function App() {
 
-  const [form, setForm] = useState({
+  const [ab, setab] = useState({
     object: [],
   })
 
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form form={form} setForm={setForm} onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime}/>
+      <Form onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab}/>
     </div>
   );
 }

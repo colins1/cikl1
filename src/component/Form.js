@@ -1,42 +1,47 @@
 import moment from 'moment-timezone';
 import React, { useEffect } from 'react';
 
-const Form = ({form, setForm, onTimeout, setonTimeout, objtime, setobjtime}) => {
+const Form = ({onTimeout, setonTimeout, objtime, setobjtime, ab, setab}) => {
 
-    useEffect(componentDidUpdate, [form]);
+    useEffect(componentDidUpdate, [ab]);
 
     function componentDidUpdate() {
-        if (form.object.length !== 0) {
+        if (objtime.object.length !== 0) {
             const id = setInterval(() => {
-                rend(form, id)
+                rend(id)
             }, 1000);
             onTimeout.object.push(id);
             setonTimeout({object: onTimeout.object});
         }
     };
 
-    function rend (form, id) {
+    function add(obj) {
+        setobjtime({object: obj});
+    }
+
+    function rend (id) {
         let a = []
-        objtime.object.map((it, i) => {onTimeout.object[i] === id ? it.time = moment(new Date()).tz(form.object[i][1]).format('LTS') : a.push(it)})
+        objtime.object.map((it, i) => {onTimeout.object[i] === id ? it.time = moment(new Date()).tz(objtime.object[i].timeZone).format('LTS') : a.push(it)})
         objtime.object.map((it, i) => {onTimeout.object[i] === id ? it.idT = onTimeout.object[i] : a.push(it)})
-        setobjtime({object: objtime.object});
+        add(objtime.object)
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        form.object.push([event.target[0].value, event.target[1].value])
-        setForm({object: form.object});
-        objtime.object.push({title: event.target[0].value, time: moment(new Date()).tz(event.target[1].value).format('LTS')})
-        setobjtime({object: objtime.object});
+        objtime.object.push({title: event.target[0].value, time: moment(new Date()).tz(event.target[1].value).format('LTS'), timeZone: event.target[1].value, name: event.target[0].value})
+        add(objtime.object)
+        setab({object: objtime.object});
     }
 
     function handleButton (e) {
         e.preventDefault();
-        clearInterval(e.target.id)
         let result = objtime.object.filter(item => item.idT != e.target.id);
         setobjtime({object: result});
-        let result1 = form.object.filter(item => item[0] != e.target.parentElement.firstChild.textContent);
-        setForm({object: result1});
+        //let result1 = objtime.object.filter(item => item.name != e.target.parentElement.firstChild.textContent);
+        let result2 = onTimeout.object.filter(item => item != e.target.id);
+        setonTimeout({object: result2});
+        setab({object: result});
+        clearInterval(e.target.id)
     }
 
     return (
@@ -56,7 +61,7 @@ const Form = ({form, setForm, onTimeout, setonTimeout, objtime, setobjtime}) => 
             </form>
             <div style={{float: "left", margin: "20px", border: "solid black 2px", borderRadius: "10px", width: "500px"}}>
                 <div style={{display: "flex", marginLeft: "10px"}}>
-                {objtime.object.length !== 0 ? objtime.object.map((items, i) => <div key={i} style={{marginLeft: "10px"}} >
+                {ab.object.length !== 0 ? ab.object.map((items, i) => <div key={i} style={{marginLeft: "10px"}} >
                                                                                     <p>{items.title}</p>
                                                                                     <p>{items.time}</p>
                                                                                     <button id={items.idT} onClick={handleButton}>✗</button>
