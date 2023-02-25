@@ -1,8 +1,7 @@
 import moment from 'moment-timezone';
 import React, { useEffect } from 'react';
 
-const Form = ({onTimeout, setonTimeout, objtime, setobjtime, ab, setab}) => {
-
+export default function List ({onTimeout, setonTimeout, objtime, setobjtime, ab, setab, children }) {
     useEffect(componentDidUpdate, [ab]);
 
     function componentDidUpdate() {
@@ -33,19 +32,8 @@ const Form = ({onTimeout, setonTimeout, objtime, setobjtime, ab, setab}) => {
         setab({object: objtime.object});
     }
 
-    function handleButton (e) {
-        e.preventDefault();
-        let result = objtime.object.filter(item => item.idT != e.target.id);
-        setobjtime({object: result});
-        //let result1 = objtime.object.filter(item => item.name != e.target.parentElement.firstChild.textContent);
-        let result2 = onTimeout.object.filter(item => item != e.target.id);
-        setonTimeout({object: result2});
-        setab({object: result});
-        clearInterval(e.target.id)
-    }
-
     return (
-        <div>
+    <div>
             <h3 style={{marginLeft: "10px"}}>Arctic/Longyearbyen</h3>
             <h3 style={{marginLeft: "10px"}}>America/Danmarkshavn</h3>
             <h3 style={{marginLeft: "10px"}}>Asia/Yakutsk</h3>
@@ -61,15 +49,9 @@ const Form = ({onTimeout, setonTimeout, objtime, setobjtime, ab, setab}) => {
             </form>
             <div style={{float: "left", margin: "20px", border: "solid black 2px", borderRadius: "10px", width: "500px"}}>
                 <div style={{display: "flex", marginLeft: "10px"}}>
-                {ab.object.length !== 0 ? ab.object.map((items, i) => <div key={i} style={{marginLeft: "10px"}} >
-                                                                                    <p>{items.title}</p>
-                                                                                    <p>{items.time}</p>
-                                                                                    <button id={items.idT} onClick={handleButton}>✗</button>
-                                                                                </div>) : ""}
+                {ab.object.length !== 0 ? ab.object.map((items) => children(items)) : ""}
                 </div>
             </div>
         </div>
-    )
+        )
 }
-
-export default Form

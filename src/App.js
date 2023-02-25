@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import Form from './component/Form';
+import ListItem from './component/Child';
+import List from './component/Form';
 import './App.css';
 import './main.css';
 
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <Form onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab}/>
+      <List onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab}>{(item) => <ListItem onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab} key={item}>{item}</ListItem>}</List>
     </div>
   );
 }
