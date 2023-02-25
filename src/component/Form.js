@@ -1,8 +1,8 @@
 import moment from 'moment-timezone';
 import React, { useEffect } from 'react';
 
-export default function List ({onTimeout, setonTimeout, objtime, setobjtime, ab, setab, children }) {
-    useEffect(componentDidUpdate, [ab]);
+export default function List ({az, setza, onTimeout, setonTimeout, objtime, setobjtime, ab, setab, children }) {
+    useEffect(componentDidUpdate, [az]);
 
     function componentDidUpdate() {
         if (objtime.object.length !== 0) {
@@ -30,6 +30,7 @@ export default function List ({onTimeout, setonTimeout, objtime, setobjtime, ab,
         objtime.object.push({title: event.target[0].value, time: moment(new Date()).tz(event.target[1].value).format('LTS'), timeZone: event.target[1].value, name: event.target[0].value})
         add(objtime.object)
         setab({object: objtime.object});
+        setza(event.target[0].value);
     }
 
     return (
@@ -45,6 +46,7 @@ export default function List ({onTimeout, setonTimeout, objtime, setobjtime, ab,
                 <div className="form-group">
                 <input className="form-control" type="text" placeholder="Временная зона" required/>
                 </div>
+                
                 <button style={{margin: "20px"}} type="submit" className="btn btn-primary">OK</button>
             </form>
             <div style={{float: "left", margin: "20px", border: "solid black 2px", borderRadius: "10px", width: "500px"}}>

@@ -7,6 +7,8 @@ import './main.css';
 
 function App() {
 
+  let [az, setza] = useState('')
+
   const [ab, setab] = useState({
     object: [],
   })
@@ -22,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <List onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab}>{(item) => <ListItem onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab} key={item}>{item}</ListItem>}</List>
+      <List onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab} az={az} setza={setza}>{(item) => <ListItem onTimeout={onTimeout} setonTimeout={setonTimeout} objtime={objtime} setobjtime={setobjtime} ab={ab} setab={setab} key={item}>{item}</ListItem>}</List>
     </div>
   );
 }
