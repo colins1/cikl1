@@ -20,14 +20,14 @@ export default function List ({az, setza, onTimeout, setonTimeout, objtime, seto
 
     function rend (id) {
         let a = []
-        objtime.object.map((it, i) => {onTimeout.object[i] === id ? it.time = moment(new Date()).tz(objtime.object[i].timeZone).format('LTS') : a.push(it)})
+        objtime.object.map((it, i) => {onTimeout.object[i] === id ? it.time = moment(new Date()).add(objtime.object[i].timeZone,'hours').format('LTS') : a.push(it)})
         objtime.object.map((it, i) => {onTimeout.object[i] === id ? it.idT = onTimeout.object[i] : a.push(it)})
         add(objtime.object)
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        objtime.object.push({title: event.target[0].value, time: moment(new Date()).tz(event.target[1].value).format('LTS'), timeZone: event.target[1].value, name: event.target[0].value})
+        objtime.object.push({title: event.target[0].value, time: moment(new Date()).add(event.target[1].value,'hours').format('LTS'), timeZone: event.target[1].value, name: event.target[0].value})
         add(objtime.object)
         setab({object: objtime.object});
         setza(event.target[0].value);
@@ -44,7 +44,7 @@ export default function List ({az, setza, onTimeout, setonTimeout, objtime, seto
                 <input type="text" className="form-control" placeholder="Название" required/>
                 </div>
                 <div className="form-group">
-                <input className="form-control" type="text" placeholder="Временная зона" required/>
+                <input className="form-control" type="number" placeholder="Временная зона" required/>
                 </div>
                 
                 <button style={{margin: "20px"}} type="submit" className="btn btn-primary">OK</button>
